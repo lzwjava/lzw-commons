@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">咱俩</string>
+    <string name="tips">提示</string>
+    <string name="please_choose">请选择</string>
+    <string name="share">分享</string>
+    <string name="right">好的</string>
+    <string name="noGiveStar">未找到可评分的商店应用</string>
+    <string name="hard_loading">努力加载中...</string>
+    <string name="no_network">未联网</string>
+</resources>
