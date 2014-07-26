@@ -28,6 +28,10 @@ public abstract class NetAsyncTask extends AsyncTask<Void, Void, Void> {
     return this;
   }
 
+  public ProgressDialog getDialog() {
+    return dialog;
+  }
+
   @Override
   protected void onPreExecute() {
     super.onPreExecute();

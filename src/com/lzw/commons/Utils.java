@@ -3,13 +3,17 @@ package com.lzw.commons;
 import android.app.*;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.net.wifi.WifiManager;
+import android.os.AsyncTask;
 import android.os.Environment;
+import android.provider.MediaStore;
+import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
@@ -238,8 +242,16 @@ public class Utils {
   }
 
   public static void alertIconDialog(Activity activity, String s, int iconId) {
-    new AlertDialog.Builder(activity).setTitle(R.string.tips)
-        .setMessage(s).setIcon(iconId).show();
+    getBaseDialogBuilder(activity, s).show();
+  }
+
+  public static void alertIconDialog(Activity activity, int sId) {
+    getBaseDialogBuilder(activity, activity.getString(sId)).show();
+  }
+
+
+  public static AlertDialog.Builder getBaseDialogBuilder(Activity activity, String s) {
+    return getBaseDialogBuilder(activity).setMessage(s);
   }
 
   public static int getWindowWidth(Activity cxt) {
@@ -399,7 +411,7 @@ public class Utils {
   }
 
   public static void notifyMsg(Context cxt, Class<?> toClz, int titleId, int msgId, int notifyId) {
-    notifyMsg(cxt, toClz, cxt.getString(titleId), cxt.getString(msgId), notifyId);
+    notifyMsg(cxt, toClz, cxt.getString(titleId), null, cxt.getString(msgId), notifyId);
   }
 
   public static String getTodayDayStr() {
@@ -441,15 +453,18 @@ public class Utils {
     return String.format(cxt.getString(id), args);
   }
 
-  public static void notifyMsg(Context context, Class<?> clz, String title, String msg, int notifyId) {
+  public static void notifyMsg(Context context, Class<?> clz, String title, String ticker, String msg, int notifyId) {
     int icon = context.getApplicationInfo().icon;
     PendingIntent pend = PendingIntent.getActivity(context, 0,
         new Intent(context, clz), 0);
     Notification.Builder builder = new Notification.Builder(context);
+    if (ticker == null) {
+      ticker = msg;
+    }
     builder.setContentIntent(pend)
         .setSmallIcon(icon)
         .setWhen(System.currentTimeMillis())
-        .setTicker(msg)
+        .setTicker(ticker)
         .setContentTitle(title)
         .setContentText(msg)
         .setAutoCancel(true);
@@ -470,5 +485,57 @@ public class Utils {
         view.getLayoutParams();
     lp.topMargin = topMargin;
     view.setLayoutParams(lp);
+  }
+
+  public static List<?> getCopyList(List<?> ls) {
+    List<?> l = new ArrayList(ls);
+    return l;
+  }
+
+  public static void fixAsyncTaskBug() {
+    new AsyncTask<Void, Void, Void>() {
+
+      @Override
+      protected Void doInBackground(Void... params) {
+        return null;
+      }
+    }.execute();
+  }
+
+  public static String getPhoneNum(Context cxt) {
+    TelephonyManager tm = (TelephonyManager) cxt.getSystemService(Context.TELEPHONY_SERVICE);
+    String deviceid = tm.getDeviceId();
+    String tel = tm.getLine1Number();
+    String imei = tm.getSimSerialNumber();
+    String imsi = tm.getSubscriberId();
+    Logger.d("tel=" + tel + "  " + imei + " " + imei);
+    return tel;
+  }
+
+  public static void goActivityAndFinish(Activity cxt, Class<?> clz) {
+    Intent intent = new Intent(cxt, clz);
+    cxt.startActivity(intent);
+    cxt.finish();
+  }
+
+  public static String getRealPathFromURI(Context context, Uri contentUri) {
+    Cursor cursor = null;
+    try {
+      String[] proj = { MediaStore.Images.Media.DATA };
+      cursor = context.getContentResolver().query(contentUri,  proj, null, null, null);
+      int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+      cursor.moveToFirst();
+      return cursor.getString(column_index);
+    } finally {
+      if (cursor != null) {
+        cursor.close();
+      }
+    }
+  }
+
+  public static void openUrl(Context context, String url) {
+    Intent i=new Intent(Intent.ACTION_VIEW);
+    i.setData(Uri.parse(url));
+    context.startActivity(i);
   }
 }

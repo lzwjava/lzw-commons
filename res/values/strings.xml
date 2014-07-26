@@ -7,5 +7,21 @@
     <string name="right">好的</string>
     <string name="noGiveStar">未找到可评分的商店应用</string>
     <string name="hard_loading">努力加载中...</string>
-    <string name="no_network">未联网</string>
+    <string name="no_network">网络差</string>
+
+    <string name="alreadyNew">已经是最新版本了</string>
+    <string name="isUpdating">正在后台更新中...</string>
+    <string name="hardLoading">努力加载中...</string>
+    <string name="update">版本更新</string>
+    <string name="sureToUpdate">确定更新版本吗</string>
+    <string name="update_title">更新日志</string>
+    <string name="installNew">安装新版本</string>
+    <string name="haveNewVersion">版本更新</string>
+    <string name="later">稍后提醒</string>
+    <string name="gettingUpdateData">获取数据中...</string>
+    <string name="cancel">取消</string>
+    <string name="uploadSucceed">上传成功，谢谢您</string>
+    <string name="logOut">注销</string>
+    <string name="uploading">上传中...</string>
+    <string name="no_more">已无更多</string>
 </resources>
