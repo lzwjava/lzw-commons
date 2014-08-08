@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -537,5 +538,17 @@ public class Utils {
     Intent i=new Intent(Intent.ACTION_VIEW);
     i.setData(Uri.parse(url));
     context.startActivity(i);
+  }
+
+  public static Bitmap getCopyBitmap(Bitmap original) {
+    Bitmap copy = Bitmap.createBitmap(original.getWidth(),
+        original.getHeight(), original.getConfig());
+    Canvas copiedCanvas = new Canvas(copy);
+    copiedCanvas.drawBitmap(original, 0f, 0f, null);
+    return copy;
+  }
+
+  public static Bitmap getEmptyBitmap(int w,int h) {
+    return Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
   }
 }
