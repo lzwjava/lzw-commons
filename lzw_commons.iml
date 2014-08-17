@@ -16,8 +16,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module" module-name="actionbarsherlock" />
-    <orderEntry type="library" name="avosfeedback-v2.6.1.1" level="project" />
   </component>
 </module>
 
