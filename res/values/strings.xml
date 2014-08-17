@@ -24,4 +24,6 @@
     <string name="logOut">注销</string>
     <string name="uploading">上传中...</string>
     <string name="no_more">已无更多</string>
+    <string name="open">开启</string>
+    <string name="start">开始</string>
 </resources>

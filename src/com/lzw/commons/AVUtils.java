@@ -2,7 +2,6 @@ package com.lzw.commons;
 
 import android.content.Context;
 import android.content.Intent;
-import com.avos.avoscloud.feedback.FeedbackAgent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,13 +16,13 @@ public class AVUtils {
   }
 
   public static void syncFeedBack(Context cxt) {
-    FeedbackAgent agent = new FeedbackAgent(cxt);
-    agent.sync();
+    //FeedbackAgent agent = new FeedbackAgent(cxt);
+    //agent.sync();
   }
 
   public static void startFeedBackActivity(Context cxt) {
-    FeedbackAgent agent = new FeedbackAgent(cxt);
-    agent.startDefaultThreadActivity();
+    //FeedbackAgent agent = new FeedbackAgent(cxt);
+    //agent.startDefaultThreadActivity();
   }
 
 }

@@ -175,6 +175,10 @@ public class Utils {
     toastIt(context, strId, false);
   }
 
+  public static void toastNonet(Context context) {
+    toastIt(context, R.string.no_network, false);
+  }
+
 
   public static void toast(Context context, String str) {
     Toast.makeText(context, str, Toast.LENGTH_SHORT).show();
