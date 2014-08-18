@@ -8,7 +8,7 @@ import android.widget.Toast;
  * Created by lzw on 14-4-29.
  */
 public class Logger {
-  public static boolean open=false;
+  public static boolean open=true;
 
   public static void d(String s) {
     if(open){
