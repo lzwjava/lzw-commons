@@ -156,7 +156,7 @@ public class Utils {
 
   public static ProgressDialog showSpinnerDialog(Activity activity) {
     ProgressDialog dialog = new ProgressDialog(activity);
-    dialog.setMessage(activity.getString(R.string.hard_loading));
+    dialog.setMessage(activity.getString(R.string.hardLoading));
     dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
     dialog.setCancelable(true);
     dialog.show();
@@ -176,7 +176,7 @@ public class Utils {
   }
 
   public static void toastNonet(Context context) {
-    toastIt(context, R.string.no_network, false);
+    toastIt(context, R.string.badNetwork, false);
   }
 
 

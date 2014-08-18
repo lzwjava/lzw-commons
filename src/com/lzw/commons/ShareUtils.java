@@ -31,7 +31,7 @@ public class ShareUtils {
       cxt.startActivity(intent);
     } catch (Exception e) {
       e.printStackTrace();
-      Utils.toast(cxt, R.string.noGiveStar);
+      Utils.toast(cxt, R.string.cannotFindGiveStarShop);
     }
   }
 }
