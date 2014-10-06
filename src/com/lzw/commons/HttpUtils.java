@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -34,31 +35,31 @@ import java.util.List;
  * Created by lzw on 14-6-27.
  */
 public class HttpUtils {
-  public static String doGet(HttpClient httpClient, String url, String... pairs) {
+  public static String httpGet(HttpClient httpClient, String url, String... pairs) throws IOException {
+    HttpEntity entity = httpGetEntity(httpClient, url, pairs);
+    return EntityUtils.toString(entity);
+  }
+
+  public static org.apache.http.HttpEntity httpGetEntity(HttpClient httpClient, String url, String... pairs) throws IOException {
     String entityContent = null;
-    try {
       url = makeGetSrl(url, pairs);
       HttpGet get = new HttpGet(url);
       HttpResponse response = httpClient.execute(get);
       //print("%d", response.getStatusLine().getStatusCode());
-      return EntityUtils.toString(response.getEntity());
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return entityContent;
+      return response.getEntity();
   }
 
-  public static String makeGetSrl(String url,String... pairs) {
-    if(!url.endsWith("?")){
-      url+="?";
+  public static String makeGetSrl(String url, String... pairs) {
+    if (!url.endsWith("?")) {
+      url += "?";
     }
-    List<NameValuePair> params=new LinkedList<NameValuePair>();
-    int len=pairs.length;
-    for(int i=0;i<len/2;i++){
-      params.add(new BasicNameValuePair(pairs[2*i],pairs[2*i+1]));
+    List<NameValuePair> params = new LinkedList<NameValuePair>();
+    int len = pairs.length;
+    for (int i = 0; i < len / 2; i++) {
+      params.add(new BasicNameValuePair(pairs[2 * i], pairs[2 * i + 1]));
     }
-    String paramsStr= URLEncodedUtils.format(params, "utf-8");
-    url+=paramsStr;
+    String paramsStr = URLEncodedUtils.format(params, "utf-8");
+    url += paramsStr;
     return url;
   }
 
